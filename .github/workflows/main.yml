@@ -22,6 +22,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Publish NuGet
+      uses: NickSmyk/publish-nuget@v2.7.0
       with:
         # Filepath of the project to be packaged, relative to root of repository
         PROJECT_FILE_PATH: TelegramBotSkeleton/TelegramBotSkeleton.csproj
