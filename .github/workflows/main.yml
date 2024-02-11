@@ -16,9 +16,9 @@ jobs:
           sed -i -e 's/{{Version}}/${{github.ref_name}}/' ./TelegramBotSkeleton/TelegramBotSkeleton.csproj
       - name: Pack
         run: |
-          dotnet pack ./TelegramBotSkeleton -c Release
+          dotnet pack ./TelegramBotSkeleton -c Release -o .output
       - name: Publish
         env:
           API_KEY: ${{secrets.nuget_api_key}}
         run: |
-          dotnet nuget push .debug/*.nupkg --api-key $API_KEY --source https://api.nuget.org/v3/index.json
+          dotnet nuget push .output/*.nupkg --api-key $API_KEY --source https://api.nuget.org/v3/index.json
