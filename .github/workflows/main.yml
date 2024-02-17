@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Get path
+        run: |
+          echo "TelegramBotSkeleton.csproj found at: $(find . -name 'TelegramBotSkeleton.csproj')"
       - name: Set Version
         run: |
           sed -i '' "/<\/PackageId>/a\\                                                                                 
