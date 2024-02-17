@@ -17,7 +17,7 @@ jobs:
           echo "PATH_TO_CSPROJ=$PATH_TO_CSPROJ" >> $GITHUB_ENV
       - name: Set Version
         run: |
-          sed -i '' "/<\/PackageId>/a\\ <Version>${{github.ref_name}}<\/Version>" {{PATH_TO_CSPROJ}}
+          sed -i '' "/<\/PackageId>/a\\<Version>${{github.ref_name}}<\/Version>"./TelegramBotSkeleton/TelegramBotSkeleton.csproj
       - name: Pack
         run: |
           dotnet pack ./TelegramBotSkeleton -c Release -o .output
