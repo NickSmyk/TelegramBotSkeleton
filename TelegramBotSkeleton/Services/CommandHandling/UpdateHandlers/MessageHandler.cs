@@ -33,6 +33,7 @@ public class MessageHandler : BaseHandler
             return;
         }
 
+        //TODO:WORK -> this is potential issue You duplicate types for no apparent reason
         ISupportedTypeInformation supportedTypeInformation = new MessageSupportedTypeInformation(chatType.Value);
         await CommandService.TryExecutingCommand(message, supportedTypeInformation, MessageProperties);
     }
