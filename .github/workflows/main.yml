@@ -17,7 +17,7 @@ jobs:
       - name: Set Version
         run: |
           sed -i '' "/<\/PackageId>/a\\                                                                                 
-            <Version>${{github.ref_name}}<\/Version>" ./TelegramBotSkeleton.csproj
+            <Version>${{github.ref_name}}<\/Version>" ./TelegramBotSkeleton/TelegramBotSkeleton.csproj
       - name: Pack
         run: |
           dotnet pack ./TelegramBotSkeleton -c Release -o .output
