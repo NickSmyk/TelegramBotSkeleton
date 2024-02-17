@@ -13,7 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Set Version
         run: |
-          sed -i -e 's/{{Version}}/${{github.ref_name}}/' ./TelegramBotSkeleton/TelegramBotSkeleton.csproj
+          sed -i '' "/<\/PackageId>/a\\                                                                                 
+            <Version>${{github.ref_name}}<\/Version>" ./TelegramBotSkeleton/TelegramBotSkeleton.csproj
       - name: Pack
         run: |
           dotnet pack ./TelegramBotSkeleton -c Release -o .output
