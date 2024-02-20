@@ -4,6 +4,7 @@ using Microsoft.Extensions.Hosting;
 using TelegramBotSkeleton.Builder.Interfaces;
 using TelegramBotSkeleton.Extensions;
 using TelegramBotSkeleton.Services.BotClientServices;
+using TelegramBotSkeleton.Services.CommandHandling;
 using TelegramBotSkeleton.Services.Interfaces;
 
 namespace TelegramBotSkeleton.Builder;
@@ -27,7 +28,9 @@ public class BotBuilder :
 
         _services.TryAddSingleton<IMessagesReceiverService, MessagesReceiverService>();
         _services.TryAddSingleton<ITelegramBotClientService, TelegramBotClientService>();
-        _services.TryAddSingleton<IHandlerCreatorService, HandlerCreatorService>();
+        _services.TryAddScoped<IHandlerCreatorService, HandlerCreatorService>();
+        _services.TryAddScoped<ICommandService, CommandService>();
+        _services.TryAddSingleton<ErrorsHandlerService>();
         _services.RegisterCommands();
         _services.RegisterHandlers();
         return _services;

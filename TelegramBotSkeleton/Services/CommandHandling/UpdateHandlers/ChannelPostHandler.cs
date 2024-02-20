@@ -9,22 +9,21 @@ public class ChannelPostHandler : BaseHandler
 {
     protected override ISupportedTypeInformation SupportedTypeInformation => new GroupMessage();
     
-    public ChannelPostHandler(IMessageProperties messageProperties, ICommandService commandService) :
-        base(messageProperties, commandService) { }
+    public ChannelPostHandler(ICommandService commandService) : base(commandService) { }
 
     public override IEnumerable<ISupportedTypeInformation> GetSupportedTypes()
     {
         throw new NotImplementedException();
     }
 
-    public override async Task Handle()
+    public override async Task Handle(IMessageProperties messageProperties)
     {
-        string? message = MessageProperties.Update.ChannelPost?.Text;
+        string? message = messageProperties.Update.ChannelPost?.Text;
         if (String.IsNullOrEmpty(message))
         {
             return;
         }
         
-        await CommandService.TryExecutingCommand(message, this.SupportedTypeInformation, MessageProperties);
+        await CommandService.TryExecutingCommand(message, this.SupportedTypeInformation, messageProperties);
     }
 }

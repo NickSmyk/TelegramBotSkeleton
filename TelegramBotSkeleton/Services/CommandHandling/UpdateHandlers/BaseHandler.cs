@@ -7,26 +7,24 @@ namespace TelegramBotSkeleton.Services.CommandHandling.UpdateHandlers;
 
 public abstract class BaseHandler : IUpdateHandler
 {
-    protected readonly IMessageProperties MessageProperties;
     protected readonly ICommandService CommandService;
     protected abstract ISupportedTypeInformation SupportedTypeInformation { get; }
 
-    public BaseHandler(IMessageProperties messageProperties, ICommandService commandService)
+    public BaseHandler(ICommandService commandService)
     {
-        MessageProperties = messageProperties;
         CommandService = commandService;
     }
 
     public abstract IEnumerable<ISupportedTypeInformation> GetSupportedTypes();
 
-    public virtual async Task Handle()
+    public virtual async Task Handle(IMessageProperties messageProperties)
     {
-        string? message = MessageProperties.Update.Message?.Text;
+        string? message = messageProperties.Update.Message?.Text;
         if (String.IsNullOrEmpty(message))
         {
             return;
         }
         
-        await CommandService.TryExecutingCommand(message, this.SupportedTypeInformation, MessageProperties);
+        await CommandService.TryExecutingCommand(message, this.SupportedTypeInformation, messageProperties);
     }
 }

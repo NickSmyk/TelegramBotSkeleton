@@ -2,17 +2,18 @@ using Telegram.Bot.Types.Enums;
 using TelegramBotSkeleton.Commands.Interfaces;
 using TelegramBotSkeleton.Models.Interfaces;
 using TelegramBotSkeleton.Services.CommandHandling.Interfaces;
+using TelegramBotSkeleton.Services.Interfaces;
 
 namespace TelegramBotSkeleton.Services.CommandHandling.UpdateHandlers;
 
 public class DefaultHandler : IUpdateHandler
 {
-    private readonly IMessageProperties _messageProperties;
+    private readonly ICommandService commandService;
     public UpdateType HandlerResponsibilityType => UpdateType.Unknown;
 
-    public DefaultHandler(IMessageProperties messageProperties)
+    public DefaultHandler(ICommandService commandService)
     {
-        _messageProperties = messageProperties;
+        this.commandService = commandService;
     }
 
 
@@ -21,7 +22,7 @@ public class DefaultHandler : IUpdateHandler
         throw new NotImplementedException();
     }
 
-    public async Task Handle()
+    public async Task Handle(IMessageProperties messageProperties)
     {
         throw new NotImplementedException();
     }

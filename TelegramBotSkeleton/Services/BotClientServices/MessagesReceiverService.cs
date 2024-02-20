@@ -35,7 +35,7 @@ public sealed class MessagesReceiverService : IMessagesReceiverService
                 
                 IMessageProperties messageProperties = new MessageProperties(botClient, update);
                 IUpdateHandler handler = handlerCreatorService.GetHandler(messageProperties);
-                await handler.Handle();
+                await handler.Handle(messageProperties);
             }
         }
         catch (Exception e)
