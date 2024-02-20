@@ -2,24 +2,28 @@ using Telegram.Bot.Types.Enums;
 using TelegramBotSkeleton.Commands.CommandTypes;
 using TelegramBotSkeleton.Commands.Interfaces;
 using TelegramBotSkeleton.Models.Interfaces;
+using TelegramBotSkeleton.Services.CommandHandling.Interfaces;
 using TelegramBotSkeleton.Services.Interfaces;
 
 namespace TelegramBotSkeleton.Services.CommandHandling.UpdateHandlers;
 
-public class MessageHandler : BaseHandler
+public class MessageHandler : IUpdateHandler
 {
-    protected override ISupportedTypeInformation SupportedTypeInformation => new PrivateMessage();
+    protected ISupportedTypeInformation SupportedTypeInformation => new PrivateMessage();
+    private readonly ICommandService _commandService;
 
     //TODO:WORK -> I need another handler inside this one because message has a Type ffs
-    public MessageHandler(ICommandService commandService) :
-        base(commandService) { }
+    public MessageHandler(ICommandService commandService)
+    {
+        _commandService = commandService;
+    }
 
-    public override IEnumerable<ISupportedTypeInformation> GetSupportedTypes()
+    public IEnumerable<ISupportedTypeInformation> GetSupportedTypes()
     {
         yield return new MessageSupportedTypeInformation(ChatType.Private);
     }
 
-    public override async Task Handle(IMessageProperties messageProperties)
+    public async Task Handle(IMessageProperties messageProperties)
     {
         string? message = messageProperties.Update.Message?.Text;
         if (String.IsNullOrEmpty(message))
@@ -35,6 +39,6 @@ public class MessageHandler : BaseHandler
 
         //TODO:WORK -> this is potential issue You duplicate types for no apparent reason
         ISupportedTypeInformation supportedTypeInformation = new MessageSupportedTypeInformation(chatType.Value);
-        await CommandService.TryExecutingCommand(message, supportedTypeInformation, messageProperties);
+        await _commandService.TryExecutingCommand(message, supportedTypeInformation, messageProperties);
     }
 }
