@@ -1,11 +1,11 @@
 namespace TelegramBotSkeleton.Attributes;
 
-public class CommandName : Attribute
+public class CommandNameAttribute : Attribute
 {
     public readonly IEnumerable<string> CommandNames;
 
 
-    public CommandName(params string [] commands)
+    public CommandNameAttribute(params string [] commands)
     {
         CommandNames = commands;
     }

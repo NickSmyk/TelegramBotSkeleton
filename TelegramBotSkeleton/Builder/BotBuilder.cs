@@ -5,6 +5,8 @@ using TelegramBotSkeleton.Builder.Interfaces;
 using TelegramBotSkeleton.Extensions;
 using TelegramBotSkeleton.Services.BotClientServices;
 using TelegramBotSkeleton.Services.CommandHandling;
+using TelegramBotSkeleton.Services.DialogHandling;
+using TelegramBotSkeleton.Services.DialogHandling.Interfaces;
 using TelegramBotSkeleton.Services.Interfaces;
 
 namespace TelegramBotSkeleton.Builder;
@@ -28,6 +30,7 @@ public class BotBuilder :
 
         _services.TryAddSingleton<IMessagesReceiverService, MessagesReceiverService>();
         _services.TryAddSingleton<ITelegramBotClientService, TelegramBotClientService>();
+        _services.TryAddSingleton<IDialogHandlerService, DialogHandlerService>();
         _services.TryAddScoped<IHandlerCreatorService, HandlerCreatorService>();
         _services.TryAddScoped<ICommandService, CommandService>();
         _services.TryAddSingleton<ErrorsHandlerService>();

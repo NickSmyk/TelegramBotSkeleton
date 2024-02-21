@@ -3,19 +3,21 @@ using TelegramBotSkeleton.Commands.CommandTypes;
 using TelegramBotSkeleton.Commands.Interfaces;
 using TelegramBotSkeleton.Models.Interfaces;
 using TelegramBotSkeleton.Services.CommandHandling.Interfaces;
+using TelegramBotSkeleton.Services.DialogHandling.Interfaces;
 using TelegramBotSkeleton.Services.Interfaces;
 
 namespace TelegramBotSkeleton.Services.CommandHandling.UpdateHandlers;
 
 public class MessageHandler : IUpdateHandler
 {
-    protected ISupportedTypeInformation SupportedTypeInformation => new PrivateMessage();
     private readonly ICommandService _commandService;
+    private readonly IDialogHandlerService _dialogHandlerService;
 
     //TODO:WORK -> I need another handler inside this one because message has a Type ffs
-    public MessageHandler(ICommandService commandService)
+    public MessageHandler(ICommandService commandService, IDialogHandlerService dialogHandlerService)
     {
         _commandService = commandService;
+        _dialogHandlerService = dialogHandlerService;
     }
 
     public IEnumerable<ISupportedTypeInformation> GetSupportedTypes()
@@ -25,6 +27,12 @@ public class MessageHandler : IUpdateHandler
 
     public async Task Handle(IMessageProperties messageProperties)
     {
+        bool dialogWasProcessed = await _dialogHandlerService.TryHandleTheDialog(messageProperties);
+        if (dialogWasProcessed)
+        {
+            return;
+        }
+        
         string? message = messageProperties.Update.Message?.Text;
         if (String.IsNullOrEmpty(message))
         {

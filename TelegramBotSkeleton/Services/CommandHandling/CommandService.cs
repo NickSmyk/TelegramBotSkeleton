@@ -81,8 +81,8 @@ public class CommandService : ICommandService
 
     private static bool CheckCommandNameByAttribute(ICommand command, string commandName)
     {
-        CommandName? commandAttribute =
-            command.GetType().GetCustomAttributes(typeof(CommandName), true).FirstOrDefault() as CommandName;
+        CommandNameAttribute? commandAttribute =
+            command.GetType().GetCustomAttributes(typeof(CommandNameAttribute), true).FirstOrDefault() as CommandNameAttribute;
 
         if (commandAttribute is null)
         {
