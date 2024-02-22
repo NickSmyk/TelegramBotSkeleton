@@ -4,7 +4,8 @@ namespace TelegramBotSkeleton.Services.Interfaces;
 
 public interface IChatDataProviderService
 {
-    Task SaveDialog(long chatId);
+    Task CreateDialog(long chatId, string dialogName, int stageNumber);
+    Task UpdateDialogStage(long chatId, int stageNumber);
     Task DeleteDialog(long chatId);
     Task<bool> IsChatRegistered(long chatId);
     Task<long> GetChatIdByChatName(string chatName);
