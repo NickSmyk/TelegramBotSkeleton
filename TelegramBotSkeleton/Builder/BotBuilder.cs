@@ -36,6 +36,7 @@ public class BotBuilder :
         _services.TryAddSingleton<ErrorsHandlerService>();
         _services.RegisterCommands();
         _services.RegisterHandlers();
+        _services.RegisterDialogs();
         return _services;
     }
 }

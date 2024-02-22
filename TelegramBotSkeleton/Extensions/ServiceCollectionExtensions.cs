@@ -1,6 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using TelegramBotSkeleton.Builder;
 using TelegramBotSkeleton.Commands.Interfaces;
+using TelegramBotSkeleton.Dialog.Interfaces;
 using TelegramBotSkeleton.Services.CommandHandling.Interfaces;
 
 namespace TelegramBotSkeleton.Extensions;
@@ -37,9 +38,24 @@ public static class ServiceCollectionExtensions
             .SelectMany(s => s.GetTypes())
             .Where(assembly => interfaceType.IsAssignableFrom(assembly) && !assembly.IsInterface && !assembly.IsAbstract);
 
-        foreach (Type command in types)
+        foreach (Type handler in types)
         {
-            services.AddScoped(typeof(IUpdateHandler), command);
+            services.AddScoped(typeof(IUpdateHandler), handler);
+        }
+
+        return services;
+    }
+    
+    public static IServiceCollection RegisterDialogs(this IServiceCollection services)
+    {
+        Type interfaceType = typeof(IDialog);
+        IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
+            .SelectMany(s => s.GetTypes())
+            .Where(assembly => interfaceType.IsAssignableFrom(assembly) && !assembly.IsInterface && !assembly.IsAbstract);
+
+        foreach (Type dialog in types)
+        {
+            services.AddScoped(typeof(IDialog), dialog);
         }
 
         return services;
