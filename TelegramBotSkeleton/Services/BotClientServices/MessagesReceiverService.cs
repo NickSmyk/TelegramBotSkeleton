@@ -26,15 +26,15 @@ public sealed class MessagesReceiverService : IMessagesReceiverService
         {
             await using (AsyncServiceScope scope = _scopeFactory.CreateAsyncScope())
             {
-                IHandlerCreatorService? handlerCreatorService = scope.ServiceProvider.GetService<IHandlerCreatorService>();
-                if (handlerCreatorService is null)
+                IHandlerManagerService? handlerManagerService = scope.ServiceProvider.GetService<IHandlerManagerService>();
+                if (handlerManagerService is null)
                 {
                     //TODO:WORK -> change this to custom
                     throw new Exception();
                 }
                 
                 IMessageProperties messageProperties = new MessageProperties(botClient, update);
-                IUpdateHandler handler = handlerCreatorService.GetHandler(messageProperties);
+                IUpdateHandler handler = handlerManagerService.GetHandler(messageProperties);
                 await handler.Handle(messageProperties);
             }
         }

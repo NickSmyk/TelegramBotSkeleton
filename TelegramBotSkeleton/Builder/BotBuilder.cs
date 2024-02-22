@@ -30,8 +30,8 @@ public class BotBuilder :
 
         _services.TryAddSingleton<IMessagesReceiverService, MessagesReceiverService>();
         _services.TryAddSingleton<ITelegramBotClientService, TelegramBotClientService>();
-        _services.TryAddSingleton<IDialogHandlerService, DialogHandlerService>();
-        _services.TryAddScoped<IHandlerCreatorService, HandlerCreatorService>();
+        _services.TryAddScoped<IDialogHandlerService, DialogHandlerService>();
+        _services.TryAddScoped<IHandlerManagerService, HandlerManagerService>();
         _services.TryAddScoped<ICommandService, CommandService>();
         _services.TryAddSingleton<ErrorsHandlerService>();
         _services.RegisterCommands();

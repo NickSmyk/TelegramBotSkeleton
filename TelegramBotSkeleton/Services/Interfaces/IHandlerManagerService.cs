@@ -3,7 +3,7 @@ using TelegramBotSkeleton.Services.CommandHandling.Interfaces;
 
 namespace TelegramBotSkeleton.Services.Interfaces;
 
-public interface IHandlerCreatorService
+public interface IHandlerManagerService
 {
     IUpdateHandler GetHandler(IMessageProperties messageProperties);
 }

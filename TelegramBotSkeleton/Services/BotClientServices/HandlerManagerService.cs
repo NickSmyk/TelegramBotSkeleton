@@ -7,11 +7,11 @@ using TelegramBotSkeleton.Services.Interfaces;
 
 namespace TelegramBotSkeleton.Services.BotClientServices;
 
-public class HandlerCreatorService : IHandlerCreatorService
+public class HandlerManagerService : IHandlerManagerService
 {
     private readonly IEnumerable<IUpdateHandler> _handlers;
 
-    public HandlerCreatorService(IEnumerable<IUpdateHandler> handlers)
+    public HandlerManagerService(IEnumerable<IUpdateHandler> handlers)
     {
         _handlers = handlers;
     }
