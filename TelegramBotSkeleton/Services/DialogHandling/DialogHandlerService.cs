@@ -23,7 +23,8 @@ public sealed class DialogHandlerService : IDialogHandlerService
     {
         IDialog dialog = GetDialog<TDialog>();
         long chatId = messageProperties.GetMessageChatId();
-        await _chatDataProviderService.CreateDialog(chatId, nameof(TDialog), 0);
+        int firstStageNumber = dialog.GetNumberOfTheFirstStage();
+        await _chatDataProviderService.CreateDialog(chatId, nameof(TDialog), firstStageNumber);
         await dialog.Next(messageProperties);
     }
 
@@ -46,7 +47,8 @@ public sealed class DialogHandlerService : IDialogHandlerService
             return true;
         }
 
-        await _chatDataProviderService.UpdateDialogStage(chatId, dialogDto.Stage);
+        int nextStageNumber = dialog.GetNumberOfTheNextStage(dialogDto.Stage);
+        await _chatDataProviderService.UpdateDialogStage(chatId, nextStageNumber);
         return true;
     }
 

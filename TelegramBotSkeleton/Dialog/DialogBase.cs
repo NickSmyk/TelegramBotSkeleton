@@ -38,6 +38,47 @@ public abstract class DialogBase : IDialog
         return lastStageNumber.Value;
     }
 
+    public int GetNumberOfTheFirstStage()
+    {
+        IEnumerable<MethodInfo> methods = GetType().GetMethods()
+            .Where(method => method.GetCustomAttributes(typeof(DialogStageAttribute), true).Any());
+
+        IEnumerable<int> methodNumbers = 
+            methods
+                .Select(method => ((DialogStageAttribute)method.GetCustomAttributes(typeof(DialogStageAttribute), true).First()).StageNumber)
+                .OrderBy(o => o);
+        
+        int? stageNumber = methodNumbers.FirstOrDefault();
+        if (stageNumber is null)
+        {
+            //TODO:WORK -> change this to custom
+            throw new Exception();
+        }
+
+        return stageNumber.Value;
+    }
+
+    public int GetNumberOfTheNextStage(int stageNumber)
+    {
+        IEnumerable<MethodInfo> methods = GetType().GetMethods()
+            .Where(method => method.GetCustomAttributes(typeof(DialogStageAttribute), true).Any());
+
+        IEnumerable<int> methodNumbers = 
+            methods
+                .Select(method => ((DialogStageAttribute)method.GetCustomAttributes(typeof(DialogStageAttribute), true).First()).StageNumber)
+                .Where(o => o > stageNumber)
+                .OrderBy(o => o);
+        
+        int? nextStageNumber = methodNumbers.FirstOrDefault();
+        if (nextStageNumber is null)
+        {
+            //TODO:WORK -> change this to custom
+            throw new Exception();
+        }
+
+        return nextStageNumber.Value;
+    }
+
     protected MethodInfo GetMethod(int? lastExecutedStageNumber)
     {
         IEnumerable<MethodInfo> methods = GetType().GetMethods()
