@@ -19,6 +19,25 @@ public abstract class DialogBase : IDialog
         method.Invoke(this, new object[] { messageProperties });
     }
 
+    public int GetNumberOfTheLastStage()
+    {
+        IEnumerable<MethodInfo> methods = GetType().GetMethods()
+            .Where(method => method.GetCustomAttributes(typeof(DialogStageAttribute), true).Any());
+
+        IEnumerable<int> methodNumbers = 
+            methods
+                .Select(method => ((DialogStageAttribute)method.GetCustomAttributes(typeof(DialogStageAttribute), true).First()).StageNumber)
+                .OrderByDescending(o => o);
+        int? lastStageNumber = methodNumbers.FirstOrDefault();
+        if (lastStageNumber is null)
+        {
+            //TODO:WORK -> change this to custom
+            throw new Exception();
+        }
+
+        return lastStageNumber.Value;
+    }
+
     protected MethodInfo GetMethod(int? lastExecutedStageNumber)
     {
         IEnumerable<MethodInfo> methods = GetType().GetMethods()

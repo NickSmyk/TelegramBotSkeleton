@@ -4,5 +4,6 @@ namespace TelegramBotSkeleton.Dialog.Interfaces;
 
 public interface IDialog
 { 
-    Task Next(IMessageProperties messageProperties, int? lastExecutedStageNumber = null);
+    Task Next(IMessageProperties messageProperties, int? lastExecutedStageNumber = null); 
+    int GetNumberOfTheLastStage();
 }

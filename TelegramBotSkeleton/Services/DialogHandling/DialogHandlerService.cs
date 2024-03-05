@@ -22,6 +22,8 @@ public sealed class DialogHandlerService : IDialogHandlerService
     public async Task StartDialog<TDialog>(IMessageProperties messageProperties) where TDialog : IDialog
     {
         IDialog dialog = GetDialog<TDialog>();
+        long chatId = messageProperties.GetMessageChatId();
+        await _chatDataProviderService.CreateDialog(chatId, nameof(TDialog), 0);
         await dialog.Next(messageProperties);
     }
 
@@ -37,6 +39,14 @@ public sealed class DialogHandlerService : IDialogHandlerService
         DialogDto dialogDto = await _chatDataProviderService.GetDialog(chatId);
         IDialog dialog = GetDialog(dialogDto.Name);
         await dialog.Next(messageProperties, dialogDto.Stage);
+        int lastStageNumber = dialog.GetNumberOfTheLastStage();
+        if (lastStageNumber >= dialogDto.Stage)
+        {
+            await _chatDataProviderService.DeleteDialog(chatId);
+            return true;
+        }
+
+        await _chatDataProviderService.UpdateDialogStage(chatId, dialogDto.Stage);
         return true;
     }
 
