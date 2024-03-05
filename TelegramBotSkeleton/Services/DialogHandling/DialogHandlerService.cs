@@ -40,7 +40,7 @@ public sealed class DialogHandlerService : IDialogHandlerService
         IDialog dialog = GetDialog(dialogDto.Name);
         await dialog.Next(messageProperties, dialogDto.Stage);
         int lastStageNumber = dialog.GetNumberOfTheLastStage();
-        if (lastStageNumber >= dialogDto.Stage)
+        if (lastStageNumber <= dialogDto.Stage)
         {
             await _chatDataProviderService.DeleteDialog(chatId);
             return true;
