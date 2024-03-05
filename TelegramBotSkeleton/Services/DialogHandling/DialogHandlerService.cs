@@ -41,13 +41,14 @@ public sealed class DialogHandlerService : IDialogHandlerService
         IDialog dialog = GetDialog(dialogDto.Name);
         await dialog.Next(messageProperties, dialogDto.Stage);
         int lastStageNumber = dialog.GetNumberOfTheLastStage();
-        if (lastStageNumber <= dialogDto.Stage)
+        int nextStageNumber = dialog.GetNumberOfTheNextStage(dialogDto.Stage);
+        
+        if (lastStageNumber <= nextStageNumber)
         {
             await _chatDataProviderService.DeleteDialog(chatId);
             return true;
         }
 
-        int nextStageNumber = dialog.GetNumberOfTheNextStage(dialogDto.Stage);
         await _chatDataProviderService.UpdateDialogStage(chatId, nextStageNumber);
         return true;
     }
