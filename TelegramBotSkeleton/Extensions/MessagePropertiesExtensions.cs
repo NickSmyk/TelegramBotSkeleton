@@ -11,7 +11,7 @@ public static class MessagePropertiesExtensions
         if (chatId is null)
         {
             //TODO:WORK -> change this to custom
-            throw new Exception();
+            throw new Exception("Couldn't retrieve chat id from message properties");
         }
 
         return chatId.Value;
