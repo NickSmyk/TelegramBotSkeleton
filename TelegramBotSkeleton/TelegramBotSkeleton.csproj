@@ -5,7 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <PackageId>TelegramBotSkeleton</PackageId>
-        <Version>0.0.21-alpha</Version>        
+        <Version>0.0.22-alpha</Version>        
         <Company>DC</Company>
         <PackageDescription>A skeleton for a telegram bot</PackageDescription>
         <Authors>NickSmyk</Authors>

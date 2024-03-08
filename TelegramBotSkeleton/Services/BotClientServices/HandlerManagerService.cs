@@ -29,8 +29,8 @@ public class HandlerManagerService : IHandlerManagerService
                 continue;
             }
             
-            IEnumerable<ChatType> supportedChatTypes = updateHandler.GetSupportedTypes().Select(o => o.ChatType);
-            if (chatType is null || !supportedChatTypes.Contains(chatType.Value))
+            IEnumerable<ChatType?> supportedChatTypes = updateHandler.GetSupportedTypes().Select(o => o.ChatType);
+            if (!supportedChatTypes.Contains(chatType))
             {
                 continue;
             }

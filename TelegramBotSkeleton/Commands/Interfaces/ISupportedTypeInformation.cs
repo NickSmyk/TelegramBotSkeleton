@@ -6,5 +6,5 @@ namespace TelegramBotSkeleton.Commands.Interfaces;
 public interface ISupportedTypeInformation
 {
     UpdateType UpdateType { get; }
-    ChatType ChatType { get; }
+    ChatType? ChatType { get; }
 }

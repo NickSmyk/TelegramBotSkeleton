@@ -6,5 +6,5 @@ namespace TelegramBotSkeleton.Commands.CommandTypes;
 public class GroupMessage : ISupportedTypeInformation
 {
     public UpdateType UpdateType => UpdateType.Message;
-    public ChatType ChatType => ChatType.Group;
+    public ChatType? ChatType => Telegram.Bot.Types.Enums.ChatType.Group;
 }

@@ -33,7 +33,7 @@ public class CommandService : ICommandService
                 continue;
             }
 
-            IEnumerable<ChatType> supportedChatTypes = command.GetCommandTypes().Select(o => o.ChatType);
+            IEnumerable<ChatType?> supportedChatTypes = command.GetCommandTypes().Select(o => o.ChatType);
             if (!supportedChatTypes.Contains(supportedTypeInformation.ChatType))
             {
                 continue;

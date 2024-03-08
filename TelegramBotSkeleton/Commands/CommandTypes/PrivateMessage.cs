@@ -6,5 +6,5 @@ namespace TelegramBotSkeleton.Commands.CommandTypes;
 public class PrivateMessage : ISupportedTypeInformation
 {
     public UpdateType UpdateType => UpdateType.Message;
-    public ChatType ChatType => ChatType.Private;
+    public ChatType? ChatType => Telegram.Bot.Types.Enums.ChatType.Private;
 }
