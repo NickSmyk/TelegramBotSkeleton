@@ -7,6 +7,7 @@ public static class MessagePropertiesExtensions
     public static long GetMessageChatId(this IMessageProperties messageProperties)
     {
         long? chatId = messageProperties.Update.Message?.Chat.Id;
+        chatId ??= messageProperties.Update.CallbackQuery?.From.Id;
         if (chatId is null)
         {
             //TODO:WORK -> change this to custom
