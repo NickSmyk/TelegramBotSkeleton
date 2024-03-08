@@ -13,7 +13,6 @@ public class MessageHandler : IUpdateHandler
     private readonly ICommandService _commandService;
     private readonly IDialogHandlerService _dialogHandlerService;
 
-    //TODO:WORK -> I need another handler inside this one because message has a Type ffs
     public MessageHandler(ICommandService commandService, IDialogHandlerService dialogHandlerService)
     {
         _commandService = commandService;

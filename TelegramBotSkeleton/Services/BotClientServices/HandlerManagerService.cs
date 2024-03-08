@@ -40,6 +40,6 @@ public class HandlerManagerService : IHandlerManagerService
         
         //TODO:QUESTION -> maybe you should return some sort of default handler? Buy why?
         //TODO:WORK -> change this to custom
-        throw new Exception();
+        throw new Exception($"Couldn't find handler for UpdateType {updateType} and ChatType {chatType}");
     }
 }
