@@ -3,8 +3,8 @@ using TelegramBotSkeleton.Commands.Interfaces;
 
 namespace TelegramBotSkeleton.Commands.CommandTypes;
 
-public class PrivateMessage : ISupportedTypeInformation
+public class CallbackQuerySupportedTypeInformation : ISupportedTypeInformation
 {
     public UpdateType UpdateType => UpdateType.Message;
-    public ChatType? ChatType => Telegram.Bot.Types.Enums.ChatType.Private;
+    public ChatType? ChatType => null;
 }

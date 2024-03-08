@@ -22,6 +22,8 @@ public class MessageHandler : IUpdateHandler
     public IEnumerable<ISupportedTypeInformation> GetSupportedTypes()
     {
         yield return new MessageSupportedTypeInformation(ChatType.Private);
+        //right now I can't see the queries being used in other places other than messages
+        yield return new CallbackQuerySupportedTypeInformation();
     }
 
     public async Task Handle(IMessageProperties messageProperties)
