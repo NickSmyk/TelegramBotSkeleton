@@ -73,8 +73,7 @@ public sealed class DialogHandlerService : IDialogHandlerService
     private bool CompareDialogToClassName(IDialog dialog, string commandName)
     {
         string commandFullClassName = dialog.GetType().Name;
-        string commandClassName = commandFullClassName.Replace("Dialog", "");
-        return commandName.ToLower() == commandClassName.ToLower();
+        return commandName.ToLower() == commandFullClassName.ToLower();
     }
 
     //TODO:WORK -> this looks like command thing
