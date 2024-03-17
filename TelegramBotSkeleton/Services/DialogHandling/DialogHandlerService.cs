@@ -24,7 +24,7 @@ public sealed class DialogHandlerService : IDialogHandlerService
         IDialog dialog = GetDialog<TDialog>();
         long chatId = messageProperties.GetMessageChatId();
         int firstStageNumber = dialog.GetNumberOfTheFirstStage();
-        await _chatDataProviderService.CreateDialog(chatId, nameof(TDialog), firstStageNumber);
+        await _chatDataProviderService.CreateDialog(chatId, typeof(TDialog).Name, firstStageNumber);
         await dialog.Next(messageProperties);
     }
 
